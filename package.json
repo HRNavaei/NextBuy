@@ -1,0 +1,22 @@
+{
+  "name": "nextbuy",
+  "version": "1.0.0",
+  "description": "A modern and different way to buy what you like.",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "shop",
+    "online-shop",
+    "e-commerce"
+  ],
+  "author": "HRNavaei",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "mongoose": "^8.7.2"
+  }
+}
