@@ -1,13 +1,12 @@
+import * as config from './config.js';
 import mongoose from 'mongoose';
-import dotenv from 'dotenv';
+
 import app from './app.js';
 
-dotenv.config({ path: './config.env' });
-
 mongoose
-  .connect(process.env.DB_URI)
+  .connect(config.DB_URI)
   .then(() => console.log('Successfully connected to database.'));
 
-const port = process.env.PORT;
+const port = config.PORT;
 
 app.listen(port, () => console.log(`Listening to requests on port ${port}.`));
