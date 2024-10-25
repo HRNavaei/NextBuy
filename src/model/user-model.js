@@ -14,10 +14,11 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, 'Please provide a password'],
+    minLength: [6, 'Password should be at least 6 characters'],
   },
   createdAt: {
     type: Date,
-    required: [true, 'Date attribute is missing'],
+    required: [true, 'Date attribute for user is missing'],
   },
 });
 
