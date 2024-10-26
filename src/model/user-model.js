@@ -1,26 +1,37 @@
 import mongoose from 'mongoose';
 import validator from 'validator';
+import bcrypt from 'bcryptjs';
 
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: [true, 'Please provide your email address'],
+    required: [true, 'EMAIL_MISSING'],
     unique: true,
-    validation: {
-      validate: validator.isEmail,
-      message: 'Please enter a valid email address',
+    validate: {
+      validator: validator.isEmail,
+      message: 'INVALID_EMAIL',
     },
   },
   password: {
     type: String,
-    required: [true, 'Please provide a password'],
-    minLength: [6, 'Password should be at least 6 characters'],
+    required: [true, 'PWD_MISSING'],
+    minLength: [6, 'PWD_MIN_LEN_6'],
   },
   createdAt: {
     type: Date,
-    required: [true, 'Date attribute for user is missing'],
+    default: Date.now,
   },
 });
+
+userSchema.pre('save', function (next) {
+  this.password = bcrypt.hashSync(this.password, 10);
+
+  next();
+});
+
+userSchema.methods.verifyProvidedPassword = function (providedPassword) {
+  return bcrypt.compareSync(providedPassword, this.password);
+};
 
 const User = mongoose.model('User', userSchema);
 
