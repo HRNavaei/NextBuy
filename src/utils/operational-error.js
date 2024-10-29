@@ -1,8 +1,4 @@
 const errorList = {
-  INCORRECT_EMAIL_PWD: {
-    httpStatus: 401,
-    message: 'Incorrect email or password',
-  },
   EMAIL_MISSING: {
     httpStatus: 400,
     message: 'Please provide your email',
@@ -18,6 +14,10 @@ const errorList = {
   PWD_MIN_LEN_6: {
     httpStatus: 400,
     message: 'Password must be at least 6 characters',
+  },
+  INCORRECT_EMAIL_PWD: {
+    httpStatus: 401,
+    message: 'Incorrect email or password',
   },
   DUP_USER: {
     httpStatus: 409,
