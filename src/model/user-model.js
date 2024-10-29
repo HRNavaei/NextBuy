@@ -29,7 +29,7 @@ userSchema.pre('save', function (next) {
   next();
 });
 
-userSchema.methods.verifyProvidedPassword = function (providedPassword) {
+userSchema.methods.verifyPassword = function (providedPassword) {
   return bcrypt.compareSync(providedPassword, this.password);
 };
 
