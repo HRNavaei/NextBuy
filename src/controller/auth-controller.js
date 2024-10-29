@@ -40,6 +40,37 @@ export const signup = handleAsyncError(async (req, res, next) => {
     data: {
       user,
       token,
+      tokenExpiresAfter: '90 days',
+    },
+  });
+});
+
+export const signin = handleAsyncError(async (req, res, next) => {
+  const { email, password } = req.body;
+
+  if (email === undefined) throw new OperationalError('EMAIL_MISSING');
+  if (password === undefined) throw new OperationalError('PWD_MISSING');
+
+  let user = await User.findOne({ email });
+
+  if (user === null) throw new OperationalError('INCORRECT_EMAIL_PWD');
+
+  if (!user.verifyPassword(password))
+    throw new OperationalError('INCORRECT_EMAIL_PWD');
+
+  user = user.toObject();
+  delete user.password;
+
+  const token = jwt.sign({ id: user._id }, config.JWT_SECRET, {
+    expiresIn: config.JWT_EXPIRE_AFTER,
+  });
+
+  res.status(201).json({
+    state: 'success',
+    data: {
+      user,
+      token,
+      tokenExpiresAfter: '90 days',
     },
   });
 });
