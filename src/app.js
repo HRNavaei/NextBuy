@@ -1,7 +1,6 @@
 import express from 'express';
 import morgan from 'morgan';
 
-import * as config from './config.js';
 import authRouter from './routes/auth-routes.js';
 import globalErrorHandler from './utils/global-error-handler.js';
 

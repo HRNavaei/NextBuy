@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 
-import * as config from '../config.js';
 import User from '../model/user-model.js';
 import handleAsyncError from '../utils/async-error-handler.js';
 import OperationalError from '../utils/operational-error.js';
@@ -31,8 +30,8 @@ export const signup = handleAsyncError(async (req, res, next) => {
   user = user.toObject();
   delete user.password;
 
-  const token = jwt.sign({ id: user._id }, config.JWT_SECRET, {
-    expiresIn: config.JWT_EXPIRE_AFTER,
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE_AFTER,
   });
 
   res.status(201).json({
@@ -61,8 +60,8 @@ export const signin = handleAsyncError(async (req, res, next) => {
   user = user.toObject();
   delete user.password;
 
-  const token = jwt.sign({ id: user._id }, config.JWT_SECRET, {
-    expiresIn: config.JWT_EXPIRE_AFTER,
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRE_AFTER,
   });
 
   res.status(201).json({
